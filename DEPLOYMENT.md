@@ -15,13 +15,26 @@ This project is optimized for deployment on Google Cloud Run using Docker and Go
     *   Cloud Build API
     *   Container Registry API
 
-## Deployment Steps
+## Automated Deployment (GitHub Actions)
 
-Run the automated deployment script:
+This repository includes a GitHub Action workflow in `.github/workflows/deploy.yml` that automatically deploys every push to the `main` branch.
 
-```bash
-./deploy.sh
-```
+### Prerequisites for GitHub Actions
+To enable this, you must add a secret to your GitHub Repository:
+
+1.  **GCP_SA_KEY**: 
+    - Create a Service Account in your GCP project (`aitech-465715`).
+    - Grant it the following roles:
+        - `Cloud Run Admin`
+        - `Artifact Registry Administrator`
+        - `Storage Admin` (for Cloud Build)
+        - `Cloud Build Editor`
+        - `Service Account User`
+    - Create a JSON key for this service account.
+    - Go to your GitHub Repo Settings > Secrets and Variables > Actions.
+    - Add a new repository secret named `GCP_SA_KEY` and paste the entire JSON content.
+
+## Local Deployment Steps
 
 This script will:
 1. Set the active project to `aitech-465715`.
