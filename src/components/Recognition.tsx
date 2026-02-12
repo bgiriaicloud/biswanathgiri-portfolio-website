@@ -4,33 +4,16 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Award, Star, Trophy, ShieldCheck, Medal, Globe, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { portfolioData } from "@/data/portfolio";
 
-const recognitions = [
-    {
-        title: "Architecture Advocacy at Microsoft",
-        description: "Recognized for driving architectural innovation and strategic cloud advocacy within the Microsoft ecosystem.",
-        image: "https://storage.googleapis.com/biswanath-portfolio/IMG_9123.jpeg",
-        tag: "Industry Spotlight"
-    },
-    {
-        title: "Google Cloud Community Leader",
-        description: "Honored for leadership in the Cloud Community Days and technical contributions to the GCP ecosystem.",
-        image: "https://storage.googleapis.com/biswanath-portfolio/IMG_9703.jpeg",
-        tag: "GDE Recognition"
-    },
-    {
-        title: "Technical Excellence Keynote",
-        description: "Driving complex technical workshops and architecture reviews for global developer communities.",
-        image: "https://storage.googleapis.com/biswanath-portfolio/IMG_9699.jpeg",
-        tag: "Community Impact"
-    },
-    {
-        title: "Google AI Safety Research",
-        description: "Contributing to the discussion on safe and secure AI deployments within the Google Cloud ecosystem.",
-        image: "https://storage.googleapis.com/biswanath-portfolio/safegoogle.jpg",
-        tag: "Security Focus"
-    }
-];
+const recognitions = portfolioData.photos
+    .filter(photo => photo.category === "Recognition")
+    .map(photo => ({
+        title: photo.caption,
+        description: photo.location + " - " + photo.date,
+        image: photo.url,
+        tag: photo.category
+    }));
 
 export default function Recognition() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -113,32 +96,58 @@ export default function Recognition() {
                 </div>
             </div>
 
-            <div className="py-12 bg-muted/30 border-y border-border/50 relative group">
+            <div className="py-12 bg-muted/30 border-y border-border/50 relative group overflow-hidden">
                 <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-background via-background/20 to-transparent z-10 pointer-events-none" />
                 <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-background via-background/20 to-transparent z-10 pointer-events-none" />
 
-                <div className="flex w-fit pointer-events-none overflow-hidden">
-                    <div className="flex shrink-0 gap-10 px-5 items-center animate-scroll-right group-hover:[animation-play-state:paused] pointer-events-auto">
-                        <div className="flex gap-10">
-                            <HighlightItem icon={<Award className="w-5 h-5" />} text="Microsoft Architecture Recognition" color="text-blue-600" />
-                            <HighlightItem icon={<Star className="w-5 h-5" />} text="Google Cloud Developer Expert" color="text-blue-600" />
-                            <HighlightItem icon={<Award className="w-5 h-5" />} text="Google AI Expert Recognition" color="text-red-600" />
-                            <HighlightItem icon={<Trophy className="w-5 h-5" />} text="Cloud Hero Awards" color="text-amber-600" />
-                            <HighlightItem icon={<ShieldCheck className="w-5 h-5" />} text="Google Cloud Champion Innovator" color="text-green-600" />
-                            <HighlightItem icon={<Medal className="w-5 h-5" />} text="Multi-cloud Certifications" color="text-blue-600" />
-                            <HighlightItem icon={<Globe className="w-5 h-5" />} text="Public Speaker Recognitions" color="text-red-600" />
-                            <HighlightItem icon={<Laptop className="w-5 h-5" />} text="Enterprise Architecture Achievements" color="text-amber-600" />
+                <div className="flex flex-col gap-10">
+                    <div className="flex w-fit pointer-events-none">
+                        <div className="flex shrink-0 gap-10 px-5 items-center animate-scroll-right group-hover:[animation-play-state:paused] pointer-events-auto">
+                            <div className="flex gap-10">
+                                <HighlightItem icon={<Award className="w-5 h-5" />} text="Microsoft Architecture Recognition" color="text-blue-600" />
+                                <HighlightItem icon={<Star className="w-5 h-5" />} text="Google Cloud Developer Expert" color="text-blue-600" />
+                                <HighlightItem icon={<Award className="w-5 h-5" />} text="Google AI Expert Recognition" color="text-red-600" />
+                                <HighlightItem icon={<Trophy className="w-5 h-5" />} text="Cloud Hero Awards" color="text-amber-600" />
+                                <HighlightItem icon={<ShieldCheck className="w-5 h-5" />} text="Google Cloud Champion Innovator" color="text-green-600" />
+                                <HighlightItem icon={<Medal className="w-5 h-5" />} text="Multi-cloud Certifications" color="text-blue-600" />
+                                <HighlightItem icon={<Globe className="w-5 h-5" />} text="Public Speaker Recognitions" color="text-red-600" />
+                                <HighlightItem icon={<Laptop className="w-5 h-5" />} text="Enterprise Architecture Achievements" color="text-amber-600" />
+                            </div>
+                            <div className="flex gap-10">
+                                <HighlightItem icon={<Award className="w-5 h-5" />} text="Microsoft Architecture Recognition" color="text-blue-600" />
+                                <HighlightItem icon={<Star className="w-5 h-5" />} text="Google Cloud Developer Expert" color="text-blue-600" />
+                                <HighlightItem icon={<Award className="w-5 h-5" />} text="Google AI Expert Recognition" color="text-red-600" />
+                                <HighlightItem icon={<Trophy className="w-5 h-5" />} text="Cloud Hero Awards" color="text-amber-600" />
+                                <HighlightItem icon={<ShieldCheck className="w-5 h-5" />} text="Google Cloud Champion Innovator" color="text-green-600" />
+                                <HighlightItem icon={<Medal className="w-5 h-5" />} text="Multi-cloud Certifications" color="text-blue-600" />
+                                <HighlightItem icon={<Globe className="w-5 h-5" />} text="Public Speaker Recognitions" color="text-red-600" />
+                                <HighlightItem icon={<Laptop className="w-5 h-5" />} text="Enterprise Architecture Achievements" color="text-amber-600" />
+                            </div>
                         </div>
-                        {/* Duplicate for infinite scroll */}
-                        <div className="flex gap-10">
-                            <HighlightItem icon={<Award className="w-5 h-5" />} text="Microsoft Architecture Recognition" color="text-blue-600" />
-                            <HighlightItem icon={<Star className="w-5 h-5" />} text="Google Cloud Developer Expert" color="text-blue-600" />
-                            <HighlightItem icon={<Award className="w-5 h-5" />} text="Google AI Expert Recognition" color="text-red-600" />
-                            <HighlightItem icon={<Trophy className="w-5 h-5" />} text="Cloud Hero Awards" color="text-amber-600" />
-                            <HighlightItem icon={<ShieldCheck className="w-5 h-5" />} text="Google Cloud Champion Innovator" color="text-green-600" />
-                            <HighlightItem icon={<Medal className="w-5 h-5" />} text="Multi-cloud Certifications" color="text-blue-600" />
-                            <HighlightItem icon={<Globe className="w-5 h-5" />} text="Public Speaker Recognitions" color="text-red-600" />
-                            <HighlightItem icon={<Laptop className="w-5 h-5" />} text="Enterprise Architecture Achievements" color="text-amber-600" />
+                    </div>
+
+                    <div className="flex w-fit pointer-events-none">
+                        <div className="flex shrink-0 gap-10 px-5 items-center animate-scroll-left group-hover:[animation-play-state:paused] pointer-events-auto">
+                            <div className="flex gap-10">
+                                {recognitions.map((item, idx) => (
+                                    <div key={idx} className="relative w-64 h-40 rounded-3xl overflow-hidden border border-border shadow-md shrink-0">
+                                        <Image src={item.image} alt={item.title} fill className="object-cover" sizes="256px" />
+                                        <div className="absolute inset-0 bg-black/40 flex items-end p-4">
+                                            <p className="text-white text-[10px] font-black uppercase tracking-widest line-clamp-1">{item.title}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex gap-10">
+                                {recognitions.map((item, idx) => (
+                                    <div key={`dup-${idx}`} className="relative w-64 h-40 rounded-3xl overflow-hidden border border-border shadow-md shrink-0">
+                                        <Image src={item.image} alt={item.title} fill className="object-cover" sizes="256px" />
+                                        <div className="absolute inset-0 bg-black/40 flex items-end p-4">
+                                            <p className="text-white text-[10px] font-black uppercase tracking-widest line-clamp-1">{item.title}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,8 +157,15 @@ export default function Recognition() {
                         0% { transform: translateX(0); }
                         100% { transform: translateX(-50%); }
                     }
+                    @keyframes scroll-left {
+                        0% { transform: translateX(-50%); }
+                        100% { transform: translateX(0); }
+                    }
                     .animate-scroll-right {
-                        animation: scroll-right 60s linear infinite;
+                        animation: scroll-right 40s linear infinite;
+                    }
+                    .animate-scroll-left {
+                        animation: scroll-left 40s linear infinite;
                     }
                 `}</style>
             </div>
