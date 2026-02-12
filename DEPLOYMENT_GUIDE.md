@@ -4,6 +4,47 @@ This guide provides a comprehensive, step-by-step walkthrough for deploying your
 
 ---
 
+## 🏗️ Technical Stack & Local Installation
+
+This portfolio is built using modern, industry-standard frontend technologies for high performance and scalability.
+
+### 💻 Language & Frameworks
+- **Framework**: [Next.js](https://nextjs.org/) (React) using the App Router.
+- **Language**: [TypeScript](https://www.typescriptlang.org/) for type-safe, professional-grade code.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) for a sleek, responsive design.
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) for premium, fluid transitions.
+- **Icons**: [Lucide React](https://lucide.dev/) for consistent, minimal vector graphics.
+- **Deployment**: [Docker](https://www.docker.com/) for containerized, portable environments.
+
+### 📥 Installation Steps
+To set up the project locally for development, follow these steps:
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/bgiriaicloud/biswanathgiri-portfolio-website.git
+    cd biswanathgiri-portfolio-website
+    ```
+
+2.  **Install Dependencies**:
+    Ensure you have [Node.js](https://nodejs.org/) installed (v18.x or higher recommended).
+    ```bash
+    npm install
+    ```
+
+3.  **Run Development Server**:
+    Start the local environment at `http://localhost:3000`.
+    ```bash
+    npm run dev
+    ```
+
+4.  **Production Build Test**:
+    Verify the build integrity before deploying.
+    ```bash
+    npm run build
+    ```
+
+---
+
 ## 📋 Phase 1: Prerequisites
 
 Before starting, ensure you have the following:

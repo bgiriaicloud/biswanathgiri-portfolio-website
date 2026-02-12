@@ -54,7 +54,7 @@ export default function Footer() {
 
                 <div className="mt-16 pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-[12px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
-                        &copy; {new Date().getFullYear()} Biswanath Giri. All Rights Reserved.
+                        &copy; {new Date().getFullYear()} Biswanath Giri Gen AI & Cloud Expert . All Rights Reserved.
                     </p>
                     <div className="flex gap-2">
                         <span className="w-2 h-2 rounded-full bg-google-blue"></span>
