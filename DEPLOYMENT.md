@@ -15,24 +15,22 @@ This project is optimized for deployment on Google Cloud Run using Docker and Go
     *   Cloud Build API
     *   Container Registry API
 
-## Automated Deployment (GitHub Actions)
+## Automated Deployment (GitHub Actions - Keyless)
 
-This repository includes a GitHub Action workflow in `.github/workflows/deploy.yml` that automatically deploys every push to the `main` branch.
+This repository uses **Workload Identity Federation** (Keyless Auth) for secure deployment to Cloud Run. This is more secure than using static JSON keys.
 
-### Prerequisites for GitHub Actions
-To enable this, you must add a secret to your GitHub Repository:
+### Infrastructure Setup
+The following resources have been provisioned in your GCP project (`aitech-465715`):
+1.  **Workload Identity Pool**: `github-pool`
+2.  **Workload Identity Provider**: `github-provider`
+3.  **IAM Binding**: Your GitHub repository `bgiriaicloud/biswanathgiri-portfolio-website` is authorized to assume the identity of the `github-actions-deployer` service account.
 
-1.  **GCP_SA_KEY**: 
-    - Create a Service Account in your GCP project (`aitech-465715`).
-    - Grant it the following roles:
-        - `Cloud Run Admin`
-        - `Artifact Registry Administrator`
-        - `Storage Admin` (for Cloud Build)
-        - `Cloud Build Editor`
-        - `Service Account User`
-    - Create a JSON key for this service account.
-    - Go to your GitHub Repo Settings > Secrets and Variables > Actions.
-    - Add a new repository secret named `GCP_SA_KEY` and paste the entire JSON content.
+### How it works
+The GitHub Action in `.github/workflows/deploy.yml` uses the `google-github-actions/auth` task with:
+- `workload_identity_provider`: `projects/730548080047/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+- `service_account`: `github-actions-deployer@aitech-465715.iam.gserviceaccount.com`
+
+No secrets are required in GitHub for this to work!
 
 ## Local Deployment Steps
 
