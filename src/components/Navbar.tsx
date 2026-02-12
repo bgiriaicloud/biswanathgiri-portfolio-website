@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 <Link href="/" className="text-2xl font-black tracking-tight group">
-                    BISWANATH<span className="text-primary group-hover:text-primary/80 transition-colors">GIRI (AI & Cloud) Expert</span>
+                    BISWANATH <span className="text-primary group-hover:text-primary/80 transition-colors">GIRI (AI & Cloud) Expert</span>
                 </Link>
                 <div className="hidden md:flex items-center gap-10 text-sm font-bold uppercase tracking-widest text-muted-foreground">
                     <Link href="#about" className="hover:text-primary transition-colors">About</Link>
