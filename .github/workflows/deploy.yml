@@ -1,56 +1,28 @@
-name: Deploy to Cloud Run
+name: Deploy to Firebase Hosting
 
 on:
   push:
     branches:
       - main
 
-env:
-  PROJECT_ID: aitech-465715
-  REGION: us-central1
-  REPO_NAME: portfolio-repo
-  SERVICE_NAME: my-portfolio
-
 jobs:
-  deploy:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
+  build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Google Auth
-        id: auth
-        uses: google-github-actions/auth@v2
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          workload_identity_provider: "projects/730548080047/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
-          service_account: "github-actions-deployer@aitech-465715.iam.gserviceaccount.com"
-          project_id: "${{ env.PROJECT_ID }}"
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Authorize Docker
-        run: |
-          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
-
-      - name: Build and Push Container
-        run: |
-          docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }} .
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-
-      - name: Deploy to Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v2
-        with:
-          service: ${{ env.SERVICE_NAME }}
-          region: ${{ env.REGION }}
-          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-          flags: "--allow-unauthenticated --port 3000"
-
-      - name: Show Output
-        run: |
-          echo "🚀 Deployed successfully to Cloud Run!"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_AITECH_465715 }}"
+          projectId: aitech-465715
+          channelId: live
+        

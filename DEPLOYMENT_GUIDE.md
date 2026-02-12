@@ -1,158 +1,60 @@
-# 🚀 Professional Portfolio: Cloud Run Deployment Guide
+# 🚀 Professional Portfolio: Static Firebase Hosting Guide
 
-This guide provides a comprehensive, step-by-step walkthrough for deploying your AI & Cloud Expert portfolio to **Google Cloud Run** using modern **Keyless Authentication (Workload Identity Federation)**.
+This guide explains how to deploy your portfolio as a **Static Website** to Firebase Hosting. This method is high-performance, cost-effective, and does **not** require Cloud Run.
 
 ---
 
-## 🏗️ Technical Stack & Local Installation
+## 🏗️ Technical Stack
+- **Framework**: Next.js (Static Export Mode)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Hosting**: Firebase Hosting (Static)
 
-This portfolio is built using modern, industry-standard frontend technologies for high performance and scalability.
+---
 
-### 💻 Language & Frameworks
-- **Framework**: [Next.js](https://nextjs.org/) (React) using the App Router.
-- **Language**: [TypeScript](https://www.typescriptlang.org/) for type-safe, professional-grade code.
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) for a sleek, responsive design.
-- **Animations**: [Framer Motion](https://www.framer.com/motion/) for premium, fluid transitions.
-- **Icons**: [Lucide React](https://lucide.dev/) for consistent, minimal vector graphics.
-- **Deployment**: [Docker](https://www.docker.com/) for containerized, portable environments.
+## 📥 Local Setup & Build
 
-### 📥 Installation Steps
-To set up the project locally for development, follow these steps:
-
-1.  **Clone the Repository**:
-    ```bash
-    git clone https://github.com/bgiriaicloud/biswanathgiri-portfolio-website.git
-    cd biswanathgiri-portfolio-website
-    ```
-
-2.  **Install Dependencies**:
-    Ensure you have [Node.js](https://nodejs.org/) installed (v18.x or higher recommended).
+1.  **Install Dependencies**:
     ```bash
     npm install
     ```
 
-3.  **Run Development Server**:
-    Start the local environment at `http://localhost:3000`.
-    ```bash
-    npm run dev
-    ```
-
-4.  **Production Build Test**:
-    Verify the build integrity before deploying.
+2.  **Generate Static Site**:
+    This command will create an `out/` directory containing your entire website as static HTML/CSS/JS.
     ```bash
     npm run build
     ```
 
 ---
 
-## 📋 Phase 1: Prerequisites
+## 🔥 Firebase Deployment
 
-Before starting, ensure you have the following:
+### 1. Prerequisites
+- Install Firebase CLI: `npm install -g firebase-tools`
+- Login: `firebase login`
 
-1.  **Google Cloud Project**: An active project (e.g., `aitech-465715`).
-2.  **gcloud CLI**: Installed and authenticated on your local machine.
-    ```bash
-    gcloud auth login
-    ```
-3.  **GitHub Repository**: Your code pushed to a repo (e.g., `bgiriaicloud/biswanathgiri-portfolio-website`).
-4.  **Billing**: Enabled in your Google Cloud Console.
-
----
-
-## 🛠️ Phase 2: One-Time Cloud Infrastructure Setup
-
-We use **Workload Identity Federation (WIF)** to eliminate static JSON keys for maximum security.
-
-### 1. Enable Required APIs
+### 2. Initialization
+If you haven't initialized Firebase, run:
 ```bash
-gcloud services enable run.googleapis.com \
-                       artifactregistry.googleapis.com \
-                       cloudbuild.googleapis.com \
-                       iamcredentials.googleapis.com
+firebase init hosting
 ```
+- **Project**: Select your project (`aitech-465715`).
+- **Public Directory**: Type `out` (important!).
+- **Configure as single-page app**: Yes.
+- **GitHub Action**: Optional (No if you want manual control).
 
-### 2. Create the Service Account
+### 3. Manual Deployment
+After every change, run:
 ```bash
-gcloud iam service-accounts create "github-actions-deployer" \
-    --display-name="GitHub Actions Deployer"
-```
-
-### 3. Setup Workload Identity Pool & Provider
-```bash
-# Create the Pool
-gcloud iam workload-identity-pools create "github-pool" \
-    --location="global" \
-    --display-name="GitHub Actions Pool"
-
-# Create the Provider linked to your GitHub
-gcloud iam workload-identity-pools providers create-oidc "github-provider" \
-    --location="global" \
-    --workload-identity-pool="github-pool" \
-    --display-name="GitHub Actions Provider" \
-    --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
-    --issuer-uri="https://token.actions.githubusercontent.com" \
-    --attribute-condition="assertion.repository == 'bgiriaicloud/biswanathgiri-portfolio-website'"
+npm run build
+firebase deploy --only hosting
 ```
 
 ---
 
-## 🔐 Phase 3: Identity & Access Management (IAM)
+## ⚙️ Configuration Details
+- **`next.config.ts`**: Set to `output: 'export'` to enable static generation.
+- **`firebase.json`**: Configured to serve the `out/` folder and handle client-side routing.
+- **Images**: Next.js Image optimization is disabled (`unoptimized: true`) because static hosting does not have a backend image processing server.
 
-### 1. Grant Roles to the Service Account
-Run these to give the deployer permission to manage your resources:
-```bash
-PROJECT_ID="aitech-465715"
-SA_EMAIL="github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com"
-
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/run.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/artifactregistry.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/storage.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/cloudbuild.builds.editor"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_EMAIL" --role="roles/iam.serviceAccountUser"
-```
-
-### 2. Allow GitHub to Impersonate the Service Account
-This connects your GitHub repo to the GCP identity:
-```bash
-# Get the Pool Number (replace YOUR_PROJECT_NUMBER)
-gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
-    --role="roles/iam.workloadIdentityUser" \
-    --member="principalSet://iam.googleapis.com/projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/attribute.repository/bgiriaicloud/biswanathgiri-portfolio-website"
-```
-
----
-
-## 🚀 Phase 4: Deployment Methods
-
-### Option A: Fully Automated (GitHub Actions)
-This is the recommended production flow. Every push to the `main` branch triggers a build.
-1.  Verify the `workload_identity_provider` string in `.github/workflows/deploy.yml` matches your setup.
-2.  Push to GitHub:
-    ```bash
-    git add .
-    git commit -m "feat: trigger deployment"
-    git push origin main
-    ```
-
-### Option B: Manual Deployment (Scripted)
-For quick updates or local testing before pushing:
-1.  Make the script executable: `chmod +x deploy.sh`
-2.  Run the script: `./deploy.sh`
-    *   This builds the image remotely using **Cloud Build**.
-    *   Deploys to **Cloud Run** and gives you a live URL.
-
----
-
-## 📦 Phase 5: Container Architecture 
-Your app uses a **Multi-Stage Dockerfile** for optimization:
-- **Build Stage**: Compiles and minifies the code.
-- **Run Stage**: Uses a slim Node.js image with **Standalone Output** (~100MB).
-- **Security**: The container runs as a non-privileged `nextjs` user.
-
----
-
-## 🔍 Phase 6: Monitoring & Maintenance
-- **Logs**: View live application logs in the [Google Cloud Console](https://console.cloud.google.com/run).
-- **Photos**: Keep your followers updated! Any images added to your GCS bucket `gs://biswanath-portfolio/` can be refreshed in `src/data/portfolio.ts` and pushed to update the "Album Grid".
-
-Congratulations on deploying an institutional-grade, secure cloud platform! 🚀
+Congratulations! Your portfolio is now running as a lightning-fast static site on Firebase! 🚀
