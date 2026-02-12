@@ -32,7 +32,7 @@ export default function Footer() {
                             BISWANATH <span className="text-primary">GIRI</span>
                         </span>
                         <p className="text-sm font-bold text-muted-foreground tracking-widest uppercase">
-                            Google Developer Expert & Cloud Architect
+                            Google Developer Expert & Cloud & AI Architect
                         </p>
                     </div>
 

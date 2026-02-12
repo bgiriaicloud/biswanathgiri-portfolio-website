@@ -98,8 +98,8 @@ export default function PhotoLibrary() {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest border transition-all ${activeCategory === cat
-                                    ? "bg-google-red border-google-red text-white shadow-lg shadow-google-red/20"
-                                    : "bg-card border-border text-muted-foreground hover:border-google-red/50"
+                                ? "bg-google-red border-google-red text-white shadow-lg shadow-google-red/20"
+                                : "bg-card border-border text-muted-foreground hover:border-google-red/50"
                                 }`}
                         >
                             {cat}
@@ -223,20 +223,45 @@ export default function PhotoLibrary() {
 
                 {/* Progress Indicators for Slider */}
                 {viewMode === "slider" && photos.length > 1 && (
-                    <div className="mt-16 flex justify-center gap-3">
-                        {photos.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => {
-                                    setDirection(idx > currentIndex ? 1 : -1);
-                                    setCurrentIndex(idx);
-                                }}
-                                className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex
-                                        ? "w-16 bg-google-red shadow-[0_0_15px_rgba(234,67,53,0.4)]"
-                                        : "w-3 bg-muted hover:bg-google-red/40"
-                                    }`}
-                            />
-                        ))}
+                    <div className="mt-16 flex flex-col items-center gap-6">
+                        {photos.length <= 15 ? (
+                            <div className="flex justify-center gap-3 flex-wrap">
+                                {photos.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            setDirection(idx > currentIndex ? 1 : -1);
+                                            setCurrentIndex(idx);
+                                        }}
+                                        className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex
+                                            ? "w-16 bg-google-red shadow-[0_0_15px_rgba(234,67,53,0.4)]"
+                                            : "w-3 bg-muted hover:bg-google-red/40"
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-8">
+                                <div className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-4">
+                                    <span className="text-google-red text-lg">{String(currentIndex + 1).padStart(2, '0')}</span>
+                                    <div className="w-12 h-px bg-border" />
+                                    <span>{String(photos.length).padStart(2, '0')}</span>
+                                </div>
+                                <div className="flex gap-2">
+                                    {/* Show a mini-bar indicating progress */}
+                                    <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
+                                        <motion.div
+                                            className="h-full bg-google-red"
+                                            animate={{ width: `${((currentIndex + 1) / photos.length) * 100}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <p className="text-[12px] font-bold text-muted-foreground uppercase tracking-widest">
+                            Swipe or use arrows to explore the visual archive
+                        </p>
                     </div>
                 )}
             </div>
