@@ -27,7 +27,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tight text-foreground mb-8 leading-[1.1]"
+                    className="text-[48px] md:text-[56px] font-black tracking-tight text-foreground mb-6 leading-[1.1]"
                 >
                     Biswanath <span className="text-primary">Giri</span>
                 </motion.h1>
@@ -37,10 +37,10 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="flex flex-wrap justify-center gap-3 mb-8"
+                    className="flex flex-wrap justify-center gap-2 mb-8"
                 >
                     {["Cloud Architect", "GenAI Expert", "Agentic AI Specialist"].map((tag, idx) => (
-                        <span key={idx} className="px-3 py-1 text-sm font-semibold border border-border bg-secondary/30 rounded-full text-secondary-foreground whitespace-nowrap">
+                        <span key={idx} className="px-3 py-1 text-[12px] font-bold border border-border bg-secondary/30 rounded-full text-secondary-foreground whitespace-nowrap uppercase tracking-widest">
                             {tag}
                         </span>
                     ))}
@@ -51,7 +51,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-xl md:text-2xl text-muted-foreground max-w-2xl mb-12 leading-relaxed"
+                    className="text-[18px] md:text-[20px] text-muted-foreground max-w-2xl mb-12 leading-[1.6]"
                 >
                     {portfolioData.personalInfo.positioning}
                 </motion.p>

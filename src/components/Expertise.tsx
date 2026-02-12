@@ -38,10 +38,10 @@ export default function Expertise() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest mb-6">
                             Architectural Proficiency
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
+                        <h2 className="text-[32px] md:text-[36px] font-black tracking-tight mb-6">
                             Technical <span className="text-primary">Mastery</span>
                         </h2>
-                        <p className="text-muted-foreground text-xl leading-relaxed">
+                        <p className="text-muted-foreground text-[16px] md:text-[18px] leading-[1.7]">
                             Deep specialization across the Google Cloud ecosystem, GenAI infrastructure, and autonomous Agentic AI.
                         </p>
                     </div>
@@ -64,14 +64,14 @@ export default function Expertise() {
                                     <Icon className="w-8 h-8" />
                                 </div>
 
-                                <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
+                                <h3 className="text-[22px] md:text-[24px] font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
                                     {item.title}
                                 </h3>
-                                <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                                <p className="text-muted-foreground leading-[1.6] text-[16px] md:text-[18px] mb-6">
                                     {item.description}
                                 </p>
 
-                                <div className="mt-auto pt-6 border-t border-border/50 w-full flex items-center justify-between text-sm font-bold text-muted-foreground group-hover:text-foreground">
+                                <div className="mt-auto pt-6 border-t border-border/50 w-full flex items-center justify-between text-[12px] md:text-[14px] font-bold text-muted-foreground group-hover:text-foreground uppercase tracking-widest">
                                     <span className={accentGoogleColors[colorIdx]}>Expert Level</span>
                                     <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500 shadow-sm">
                                         <ArrowRight className="w-5 h-5 group-hover:text-white" />

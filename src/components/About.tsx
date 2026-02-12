@@ -10,15 +10,15 @@ export default function About() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-widest mb-6">
                             Industry Leadership
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8 text-foreground">
+                        <h2 className="text-[32px] md:text-[36px] font-black tracking-tight mb-8 text-foreground leading-tight">
                             Architecting the <span className="text-primary underline decoration-primary/30 underline-offset-8">Future of AI</span>
                         </h2>
 
-                        <div className="space-y-8 text-xl text-muted-foreground leading-relaxed">
-                            <p className="text-foreground font-medium text-2xl">
+                        <div className="space-y-8 text-muted-foreground leading-[1.7]">
+                            <p className="text-foreground font-medium text-[22px] md:text-[24px] leading-[1.5]">
                                 {portfolioData.personalInfo.about}
                             </p>
-                            <div className="grid md:grid-cols-2 gap-8 text-lg font-light">
+                            <div className="grid md:grid-cols-2 gap-8 text-[16px] md:text-[18px]">
                                 <p>
                                     As a <strong className="text-foreground font-bold">Google Developer Expert</strong>, I serve as a bridge between the core product teams at Google and the developer ecosystem. My focus is on the practical application of GenAI and Multi-Cloud Architecture.
                                 </p>

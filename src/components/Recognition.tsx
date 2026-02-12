@@ -51,20 +51,20 @@ export default function Recognition() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-google-blue/20 bg-google-blue/5 text-google-blue text-xs font-bold uppercase tracking-widest mb-6">
                             Industry Impact
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">Global <span className="text-google-blue">Industry</span> Recognition</h2>
-                        <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                        <h2 className="text-[32px] md:text-[36px] font-black tracking-tight mb-8">Global <span className="text-google-blue">Industry</span> Recognition</h2>
+                        <p className="text-muted-foreground text-[16px] md:text-[18px] leading-[1.7] mb-8">
                             Collaborating with world-leading technology partners like Microsoft and Google to architect the next generation of Cloud and AI platforms.
                         </p>
 
                         <div className="flex gap-4 mb-10">
                             <div className="flex flex-col">
-                                <span className="text-3xl font-black text-foreground">10+</span>
-                                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Product Accolades</span>
+                                <span className="text-[28px] md:text-[32px] font-black text-foreground">10+</span>
+                                <span className="text-[12px] md:text-[14px] font-bold text-muted-foreground uppercase tracking-wider">Product Accolades</span>
                             </div>
                             <div className="w-px h-12 bg-border mx-4" />
                             <div className="flex flex-col">
-                                <span className="text-3xl font-black text-foreground">GDE</span>
-                                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Expert Status</span>
+                                <span className="text-[28px] md:text-[32px] font-black text-foreground">GDE</span>
+                                <span className="text-[12px] md:text-[14px] font-bold text-muted-foreground uppercase tracking-wider">Expert Status</span>
                             </div>
                         </div>
 
@@ -99,10 +99,10 @@ export default function Recognition() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60" />
                                     <div className="absolute bottom-10 left-10 right-10">
-                                        <div className="text-white/60 text-xs font-black uppercase tracking-[0.2em] mb-2">
+                                        <div className="text-white/60 text-[12px] md:text-[14px] font-black uppercase tracking-[0.2em] mb-2">
                                             {recognitions[currentIndex].tag}
                                         </div>
-                                        <h3 className="text-white text-2xl md:text-3xl font-black leading-tight">
+                                        <h3 className="text-white text-[22px] md:text-[24px] font-black leading-tight">
                                             {recognitions[currentIndex].title}
                                         </h3>
                                     </div>
@@ -163,7 +163,7 @@ function HighlightItem({ icon, text, color }: { icon: React.ReactNode, text: str
             <div className={`p-2.5 rounded-xl ${color} bg-current/5`}>
                 {icon}
             </div>
-            <span className="text-sm font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">{text}</span>
+            <span className="text-[12px] md:text-[14px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">{text}</span>
         </div>
     );
 }

@@ -10,20 +10,20 @@ export default function Contact() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-google-red/20 bg-google-red/5 text-google-red text-xs font-bold uppercase tracking-widest mb-8">
                     Collaboration & Advisory
                 </div>
-                <h2 className="text-4xl md:text-7xl font-black tracking-tight mb-8 text-foreground leading-[1.1]">
+                <h2 className="text-[32px] md:text-[48px] font-black tracking-tight mb-8 text-foreground leading-[1.1]">
                     Ready to scale your <span className="text-google-blue">architecture?</span>
                 </h2>
-                <p className="text-xl md:text-2xl text-muted-foreground mb-16 max-w-2xl mx-auto font-normal leading-relaxed">
+                <p className="text-[18px] md:text-[20px] text-muted-foreground mb-16 max-w-2xl mx-auto font-normal leading-[1.6]">
                     Whether it's designing a sovereign Agentic AI platform, optimizing multi-cloud costs, or mentoring your engineering leaders.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-6 items-center">
-                    <Button size="lg" className="h-16 px-12 text-lg font-black rounded-full bg-google-blue hover:bg-blue-600 text-white shadow-xl shadow-blue-500/10 transition-all transform hover:-translate-y-1 uppercase tracking-widest" asChild>
+                    <Button size="lg" className="h-16 px-12 text-[16px] md:text-[18px] font-black rounded-full bg-google-blue hover:bg-blue-600 text-white shadow-xl shadow-blue-500/10 transition-all transform hover:-translate-y-1 uppercase tracking-widest" asChild>
                         <Link href={`mailto:${portfolioData.personalInfo.email}`}>
                             <Mail className="mr-3 h-6 w-6" />
                             Email Expert
                         </Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="h-16 px-12 text-lg font-black rounded-full border-border hover:bg-white text-foreground transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-widest" asChild>
+                    <Button size="lg" variant="outline" className="h-16 px-12 text-[16px] md:text-[18px] font-black rounded-full border-border hover:bg-white text-foreground transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-widest" asChild>
                         <Link href={portfolioData.personalInfo.linkedin} target="_blank">
                             LinkedIn
                             <ArrowRight className="ml-3 h-6 w-6 text-google-green" />

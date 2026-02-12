@@ -46,8 +46,8 @@ export default function Speaking() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-google-yellow/20 bg-google-yellow/5 text-google-yellow text-xs font-bold uppercase tracking-widest mb-6">
                         Public Advocacy
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6 text-foreground">Thought <span className="text-google-yellow">Leadership</span></h2>
-                    <p className="text-muted-foreground text-xl">
+                    <h2 className="text-[32px] md:text-[36px] font-black tracking-tight mb-6 text-foreground">Thought <span className="text-google-yellow">Leadership</span></h2>
+                    <p className="text-muted-foreground text-[16px] md:text-[18px]">
                         Sharing insights on the future of Cloud and AI across global stages.
                     </p>
                 </div>
@@ -85,11 +85,11 @@ export default function Speaking() {
                                         </div>
                                     </div>
 
-                                    <h3 className="text-3xl md:text-5xl font-black text-foreground mb-6 leading-tight group-hover:text-google-yellow transition-colors">
+                                    <h3 className="text-[28px] md:text-[42px] font-black text-foreground mb-6 leading-tight group-hover:text-google-yellow transition-colors">
                                         {talks[currentIndex].title}
                                     </h3>
 
-                                    <div className="flex flex-wrap items-center gap-6 text-lg text-muted-foreground font-bold mb-10">
+                                    <div className="flex flex-wrap items-center gap-6 text-[16px] md:text-[18px] text-muted-foreground font-bold mb-10">
                                         <div className="flex items-center gap-2">
                                             <Users className="w-5 h-5 text-google-yellow" />
                                             <span>{talks[currentIndex].event}</span>

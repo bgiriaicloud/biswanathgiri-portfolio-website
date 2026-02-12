@@ -75,7 +75,30 @@
   --color-google-yellow: var(--google-yellow);
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply text-[16px] md:text-[18px] font-sans leading-[1.6] antialiased;
+  }
+
+  h1 {
+    @apply text-[48px] md:text-[56px] font-black leading-[1.1] tracking-tight;
+  }
+
+  h2 {
+    @apply text-[32px] md:text-[36px] font-black leading-[1.2] tracking-tight;
+  }
+
+  h3 {
+    @apply text-[22px] md:text-[24px] font-bold leading-[1.4] tracking-tight;
+  }
+
+  p {
+    @apply text-[16px] md:text-[18px] leading-[1.7];
+  }
+
+  .text-metadata {
+    @apply text-[12px] md:text-[14px] leading-[1.5] font-bold uppercase tracking-widest;
+  }
 }
