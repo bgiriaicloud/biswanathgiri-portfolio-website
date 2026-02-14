@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function PublicationLayout({
@@ -16,17 +18,8 @@ export default function PublicationLayout({
                             </Link>
                             <div className="hidden md:flex gap-6 text-sm font-medium text-neutral-500">
                                 <Link href="/publication/articles" className="hover:text-black transition-colors">Articles</Link>
-                                <Link href="/publication/drafts" className="hover:text-black transition-colors">Drafts</Link>
-                                <Link href="/publication/featured" className="hover:text-black transition-colors">Featured</Link>
                                 <Link href="/publication/tags" className="hover:text-black transition-colors">Tags</Link>
                             </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Link href="/publication/editor">
-                                <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition-colors shadow-sm">
-                                    Write
-                                </button>
-                            </Link>
                         </div>
                     </div>
                 </div>

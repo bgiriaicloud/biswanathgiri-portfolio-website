@@ -1,39 +1,13 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { ArticleMetadata } from '@/lib/gcs';
+import { getAllArticles } from '@/lib/markdown';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { Loader2, TrendingUp, Sparkles, Clock, ArrowRight } from 'lucide-react';
+import { TrendingUp, Sparkles, Clock, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import FeaturedVideo from '@/components/FeaturedVideo';
 
 export default function PublicationLanding() {
-    const [articles, setArticles] = useState<ArticleMetadata[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch('/api/blogs?status=published')
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) setArticles(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, []);
-
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center py-20">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-            </div>
-        );
-    }
-
+    const articles = getAllArticles();
     const featured = articles[0];
     const recent = articles.slice(1, 4);
 
@@ -53,13 +27,8 @@ export default function PublicationLanding() {
                         A space dedicated to Agentic AI, Cloud Native architectures, and the future of full-stack development.
                     </p>
                     <div className="flex flex-wrap gap-4">
-                        <Link href="/publication/editor">
-                            <Button size="lg" className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-8">
-                                Start Writing
-                            </Button>
-                        </Link>
                         <Link href="/publication/articles">
-                            <Button size="lg" variant="outline" className="rounded-full border-neutral-700 px-8">
+                            <Button size="lg" className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-8">
                                 Explore Articles
                             </Button>
                         </Link>
@@ -81,11 +50,11 @@ export default function PublicationLanding() {
                         <div className="w-2 h-2 bg-blue-500 rounded-full" />
                         Featured Story
                     </div>
-                    <Link href={`/publication/articles/${featured.id}`}>
+                    <Link href={`/publication/articles/${featured.slug}`}>
                         <div className="group relative grid md:grid-cols-5 gap-8 bg-neutral-900/40 border border-neutral-800 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-colors">
                             <div className="md:col-span-3 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                                 <div className="flex items-center gap-4 text-sm text-neutral-500">
-                                    <span>Biswanath Giri</span>
+                                    <span>{featured.author}</span>
                                     <span>•</span>
                                     <span>{format(new Date(featured.createdAt), 'MMM d, yyyy')}</span>
                                 </div>
@@ -129,7 +98,7 @@ export default function PublicationLanding() {
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
                         {recent.map(article => (
-                            <Link key={article.id} href={`/publication/articles/${article.id}`}>
+                            <Link key={article.id} href={`/publication/articles/${article.slug}`}>
                                 <Card className="h-full bg-transparent border-neutral-800 hover:border-neutral-700 transition-all group">
                                     <CardContent className="p-0 flex flex-col h-full">
                                         <div className="p-6 space-y-4 flex-grow">
