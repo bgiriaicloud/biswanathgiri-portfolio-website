@@ -4,10 +4,19 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # Allow manual triggering
+
+env:
+  NODE_VERSION: '20'
+  FIREBASE_PROJECT_ID: 'aitech-465715'
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://aitech-465715.web.app
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,16 +24,52 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint code
+        run: npm run lint
+        continue-on-error: true
+
       - name: Build static site
         run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: out/
+          retention-days: 7
 
       - name: Deploy to Firebase Hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN"
+        run: |
+          npm install -g firebase-tools
+          firebase deploy --only hosting --token "$FIREBASE_TOKEN" --non-interactive
+
+      - name: Deployment Summary
+        if: success()
+        run: |
+          echo "### 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Project:** ${{ env.FIREBASE_PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** production" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** https://aitech-465715.web.app" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
