@@ -15,8 +15,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build static site
+        run: npm run build
+
       - name: Deploy to Firebase Hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
         run: npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN"

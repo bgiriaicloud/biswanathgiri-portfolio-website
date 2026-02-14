@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // output: 'export', // Commented out to enable API routes for publication system
+  output: 'export', // Enabled for Static Firebase Hosting
   images: {
     unoptimized: true,
     remotePatterns: [
