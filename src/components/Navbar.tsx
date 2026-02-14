@@ -44,6 +44,7 @@ export default function Navbar() {
                     <Link href="#expertise" className="hover:text-primary transition-colors">Expertise</Link>
                     <Link href="#projects" className="hover:text-primary transition-colors">Projects</Link>
                     <Link href="#speaking" className="hover:text-primary transition-colors">Speaking</Link>
+                    <Link href="/publication" className="hover:text-primary transition-colors text-google-blue">Publication</Link>
                 </div>
 
                 <div className="flex items-center gap-3 relative" ref={menuRef}>
