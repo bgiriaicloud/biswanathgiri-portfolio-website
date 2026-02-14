@@ -166,7 +166,6 @@ export default function BlogEditor({ articleId, initialContent, onSave, isSaving
                 <BubbleMenu
                     editor={editor}
                     className="flex bg-neutral-900 rounded-lg shadow-xl overflow-hidden p-1 gap-0.5 border border-white/10 shrink-0"
-                    tippyOptions={{ duration: 100 }}
                 >
                     <Button
                         variant="ghost"
@@ -234,7 +233,6 @@ export default function BlogEditor({ articleId, initialContent, onSave, isSaving
                 <FloatingMenu
                     editor={editor}
                     className="flex items-center gap-3 -ml-16 md:-ml-24"
-                    tippyOptions={{ duration: 100 }}
                 >
                     <div className="relative flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-full p-1 border border-neutral-100 shadow-sm">
                         <button
