@@ -1,42 +1,31 @@
-# 🚀 Professional Portfolio: Static Firebase Hosting Guide
+# 🚀 Professional Portfolio: Dynamic Deployment Guide
 
-This guide explains how to deploy your portfolio as a **Static Website** to Firebase Hosting. This method is high-performance, cost-effective, and fully automated.
+This guide explains how to deploy your portfolio as a **Dynamic Next.js Application** to Firebase Hosting. This method supports your live publication system, API routes, and automated GCS uploads.
 
 ---
 
 ## 🏗️ Technical Stack
-- **Framework**: Next.js (Static Export Mode)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Hosting**: Firebase Hosting (Static)
+- **Framework**: Next.js (Dynamic App Mode)
+- **Backend**: Firebase Functions (managed by Web Frameworks)
+- **Storage**: Google Cloud Storage (`blogscontent` bucket)
+- **CI/CD**: GitHub Actions
 
 ---
 
-## 📥 Local Setup & Build
+## � Local Deployment
 
-1.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
-
-2.  **Generate Static Site**:
-    This command will create an `out/` directory containing your entire website as static HTML/CSS/JS.
-    ```bash
-    npm run build
-    ```
-
----
-
-## 🔥 Firebase Deployment
+Since your portfolio now uses a backend for the Publication system, standard static exports are no longer used. Firebase will now automatically containerize your app.
 
 ### 1. Prerequisites
 - Install Firebase CLI: `npm install -g firebase-tools`
-- Login: `firebase login`
+- Enable the experimental frameworks support:
+  ```bash
+  firebase experiments:enable webframeworks
+  ```
 
 ### 2. Manual Deployment
-If you want to deploy quickly from your machine:
 ```bash
-npm run build
+# Firebase will automatically build and deploy your Next.js app
 firebase deploy --only hosting
 ```
 
@@ -44,40 +33,30 @@ firebase deploy --only hosting
 
 ## 🤖 CI/CD Automation (GitHub Actions)
 
-Your portfolio is pre-configured for **Zero-Touch Deployment**. Every time you push to the `main` branch, GitHub will automatically build and deploy your site.
+Your portfolio is pre-configured for **Automated Deployment**. Every time you push to the `main` branch, GitHub will build your dynamic app and update the live site.
 
-### 🛠️ Setup Steps for Automation
+### 🛠️ Configuration Steps
 
-1.  **Generate a Firebase Token**:
-    Run this command in your terminal and follow the browser prompts:
-    ```bash
-    firebase login:ci
-    ```
-    *Copy the long token string provided in the output.*
+1.  **Firebase Project ID**:
+    Ensure your `.firebaserc` points to `aitech-465715`.
 
-2.  **Add Secret to GitHub**:
-    - Go to your code repository on [GitHub.com](https://github.com/).
-    - Navigate to **Settings > Secrets and variables > Actions**.
-    - Click **"New repository secret"**.
-    - **Name**: `FIREBASE_TOKEN`
-    - **Value**: *Paste the token you copied in Step 1.*
+2.  **GitHub Secret**:
+    - Go to your repository on GitHub.
+    - **Settings > Secrets and variables > Actions**.
+    - Add a secret named `FIREBASE_TOKEN`.
+    - To get the token, run `firebase login:ci` locally and copy the result.
 
-3.  **Trigger Deployment**:
-    Push your latest changes to GitHub:
-    ```bash
-    git add .
-    git commit -m "🚀 feat: enable automated deployment"
-    git push origin main
-    ```
-
-### 🔍 Monitoring
-You can monitor the status of your deployments in the **Actions** tab of your GitHub repository.
+3.  **Experimental Flags**:
+    The GitHub Action is configured to enable `webframeworks` automatically.
 
 ---
 
 ## ⚙️ Project Architecture
-- **`.github/workflows/deploy.yml`**: The automation engine that builds your Next.js site and deploys it using the secure `FIREBASE_TOKEN`.
-- **`next.config.ts`**: Configured with `output: 'export'` for static serving.
-- **`firebase.json`**: Directs Firebase to serve the `out/` folder and handles Single Page Application (SPA) routing.
+- **`.github/workflows/deploy.yml`**: The automation engine. It uses `FIREBASE_CLI_EXPERIMENTS=webframeworks` to handle the Next.js server.
+- **`firebase.json`**: Configured with `source: "."` to tell Firebase this is a full-stack application.
+- **`next.config.ts`**: Handles the image optimization and remote patterns for your GCS bucket.
 
-Congratulations! Your portfolio is now a professional, automated, and high-performance technical showcase! 🚀🔥
+### 💡 Pro Tip
+If you see errors related to "Functions" during deployment, ensure your Firebase project is on the **Blaze (Pay-as-you-go)** plan, as Cloud Functions require billing to be enabled (even though there is a large free tier).
+
+Congratulations! Your portfolio is now a full-stack, enterprise-ready technical showcase! 🚀🔥

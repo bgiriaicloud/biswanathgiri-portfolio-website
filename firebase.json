@@ -1,16 +1,11 @@
 {
   "hosting": {
-    "public": "out",
+    "site": "aitech-465715",
+    "source": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
